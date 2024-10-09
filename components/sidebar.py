@@ -17,11 +17,31 @@ import pandas as pd
 
 # ========= Layout ========= #
 layout = dbc.Col([
-                
-            ])
+                html.H1("FPP", className="text-primary"),
+                html.P("By GRISOTTO", className="text-info"),
+                html.Hr(),
+
+#seção de perfil--------------------
+dbc.Button(id='botão_avatar',
+        children=[html.Img(src='/assent/img_hom.png', id='avatar_change', alt='Avatar', className='perfil_avatar')
+                ], style={'background-color': 'tranparent', 'border-color': 'transparent'})
+    ])
 
 
+#seção NOVO--------------------
+dbc.Row([
+    dbc.Col([
+        dbc.Button(color='sucess', id='open-novo-receita',
+            children=['+ Receita'])
 
+    ], width=6),
+    dbc.Col([
+        dbc.Button(color='sucess', id='open-novo-despesa',
+            children=['+ Despesa'])
+            
+            
+    ],width=6)
+])
 
 
 # =========  Callbacks  =========== #

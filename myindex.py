@@ -5,7 +5,7 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 
-from app import *
+from app import app, server
 from components import dashboards, extratos, sidebar
 
 
@@ -15,15 +15,17 @@ content = html.Div(id="page-content")
 
 
 app.layout = dbc.Container(children=[
-    dbc.Row({
-        dbc.Col([
-            dbc.Location(id='url'),
-            sidebar.layout
-        ], nd=2, style={'background=color': 'red', 'heigth': '1080px'}),
-        dbc.Col({
-            content
-        }, nd=10, style={'background=color': 'blue', 'heigth': '1080px'})
-    })
+dbc.Row([
+    dbc.Col([
+        dcc.Location(id='url'),
+        sidebar.layout
+    ], md=2, ),  
+    
+    dbc.Col([
+        content
+    ], md=10, )  
+])
+
 
 
 

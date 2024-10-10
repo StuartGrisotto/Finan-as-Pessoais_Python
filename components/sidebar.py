@@ -23,13 +23,13 @@ layout = dbc.Col([
 
 #seção de perfil--------------------
 dbc.Button(id='botão_avatar',
-        children=[html.Img(src='/assent/img_hom.png', id='avatar_change', alt='Avatar', className='perfil_avatar')
+        children=[html.Img(src='/assets/img_hom.png', id='avatar_change', alt='Avatar', className='perfil_avatar')
                 ], style={'background-color': 'tranparent', 'border-color': 'transparent'}),
     
 #seção NOVO--------------------
 dbc.Row([
     dbc.Col([
-        dbc.Button(color='sucess', id='open-novo-receita',
+        dbc.Button(color='success', id='open-novo-receita',
             children=['+ Receita'])
 
     ], width=6),

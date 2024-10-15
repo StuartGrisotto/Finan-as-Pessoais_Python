@@ -17,7 +17,7 @@ import pandas as pd
 
 # ========= Layout ========= #
 layout = dbc.Col([
-                html.H1("FPP", className="text-primary"),
+                html.H1("FINANÇAS PESSOAIS", className="text-primary"),
                 html.P("By GRISOTTO", className="text-info"),
                 html.Hr(),
 

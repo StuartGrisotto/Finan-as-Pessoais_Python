@@ -10,6 +10,8 @@ import plotly.express as px
 import numpy as np
 import pandas as pd
 
+from globals import *
+
 
 
 
@@ -71,8 +73,9 @@ dbc.Modal([
             dbc.Col([
                 dbc.Label("Extras"),
                 dbc.Checklist(
-                    options=[],
-                    value=[],
+                    options=[{"label": "Foi Recebida", "value": 1},
+                             {"label": "Receita Recorrente", "value": 2}],
+                    value=[1],
                     id='switches-input-receita',
                     switch=True
                 )
@@ -80,7 +83,9 @@ dbc.Modal([
 
             dbc.Col([
                 html.Label('Categoria da receita'),
-                dbc.Select(id='select_receita', options=[], value=[])
+                dbc.Select(id='select_receita',
+                    options=[{'label': i, 'value': i} for i in cat_receita],
+                    value=cat_receita[0])
             ], width=4)
 
         ], style={'margin-top': '25px'}),
@@ -162,8 +167,9 @@ dbc.Row([
             dbc.Col([
                 dbc.Label("Extras"),
                 dbc.Checklist(
-                    options=[],
-                    value=[],
+                    options=[{"label": "Foi Recebida", "value": 1},
+                             {"label": "Despesa Recorrente", "value": 2}],
+                    value=[1],
                     id='switches-input-despesa',
                     switch=True
                 )
@@ -171,7 +177,9 @@ dbc.Row([
 
             dbc.Col([
                 html.Label('Categoria da despesa'),
-                dbc.Select(id='select_despesa', options=[], value=[])
+                dbc.Select(id='select_despesa',
+                           options=[{'label': i, 'value': i} for i in cat_despesa],
+                           value=cat_despesa[0])
             ], width=4)
 
         ], style={'margin-top': '25px'}),
@@ -183,7 +191,7 @@ dbc.Row([
                     dbc.Row([
                         dbc.Col([
                             html.Legend("Adicionar categoria", style={'color': 'green'}),
-                            dbc.Input(type="text", placeholder="Nova Catergoria...", id="input-add-despesa", value=""),
+                            dbc.Input(type="text", placeholder="Nova Categoria...", id="input-add-despesa", value=""),
                             html.Br(),
                             dbc.Button("Adicionar", className="btn btn-success", id="add-category-despesa", style={"margin-top": "20px"}),
                             html.Br(),
@@ -258,3 +266,23 @@ def toggle_modal(n1, is_open):
 def toggle_modal(n1, is_open):
     if n1:
         return not is_open
+    
+
+    @app.callback(
+        Output('store-receita', 'data'),
+
+        Input('salvar_receita', 'n_clicks'), 
+        [
+            State('txt-receita', 'value'),
+            State("valor_receita", "value"),
+            State("date-receitas", "date"),
+            State("switches-input-receita", "value"),
+        State("select_receita", "value"),
+        State('store-receitas', 'data')
+        ]
+    )
+    def salve_form_receita(n, descricao, valor, date, switches, categoria, dict_receita):
+#        import pdb
+#        pdb.set_trace()
+
+        return {}

@@ -213,7 +213,7 @@ dbc.Row([
                         ],width=6)
 
                     ])
-                ], title="Adicionar/Remover Catergorias")
+                ], title="Adicionar/Remover Categorias")
             ], flush=True, start_collapsed=True, id='accordion-despesa'),
 
             html.Div(id='id_teste_despesa', style={'padding-top': '20px'}),
@@ -268,21 +268,67 @@ def toggle_modal(n1, is_open):
         return not is_open
     
 
-    @app.callback(
-        Output('store-receita', 'data'),
 
-        Input('salvar_receita', 'n_clicks'), 
-        [
-            State('txt-receita', 'value'),
-            State("valor_receita", "value"),
-            State("date-receitas", "date"),
-            State("switches-input-receita", "value"),
+# Enviar Form receita
+@app.callback(
+    Output('store-receitas', 'data'),
+
+    Input("salvar_receita", "n_clicks"),
+
+    [
+        State("txt_receitas", "value"),
+        State("valor_receita", "value"),
+        State("date-receita", "date"),
+        State("switches-input-receita", "value"),
         State("select_receita", "value"),
         State('store-receitas', 'data')
-        ]
-    )
-    def salve_form_receita(n, descricao, valor, date, switches, categoria, dict_receita):
-#        import pdb
-#        pdb.set_trace()
+    ]
+)
+def salve_form_receita(n, descricao, valor, date, switches, categoria, dict_receitas):
+    df_receitas = pd.DataFrame(dict_receitas)
 
-        return {}
+    if n and not(valor == "" or valor== None):
+        valor = round(float(valor), 2)
+        date = pd.to_datetime(date).date()
+        categoria = categoria[0] if type(categoria) == list else categoria
+
+        recebido = 1 if 1 in switches else 0
+        fixo = 0 if 2 in switches else 0
+
+        df_receitas.loc[df_receitas.shape[0]] = [valor, recebido, fixo, date, categoria, descricao]
+        df_receitas.to_csv("df_receitas.csv")
+
+    data_return = df_receitas.to_dict()
+    return data_return
+
+
+
+
+# Enviar Form despesa
+@app.callback(
+    Output('store-despesas', 'data'),
+    Input('salvar_despesa', 'n_clicks'), 
+    [
+        State('txt_despesa', 'value'),
+        State('valor_despesa', 'value'),  # Corrigido para 'valor_despesa'
+        State('date-despesa', 'date'),
+        State('switches-input-despesa', 'value'),
+        State('select_despesa', 'value'),
+        State('store-despesas', 'data')
+    ]
+)
+def salve_form_despesa(n, descricao, valor, date, switches, categoria, dict_despesas):
+    df_despesas = pd.DataFrame(dict_despesas)
+
+    if n and not(valor == "" or valor is None):
+        valor = round(float(valor), 2)
+        date = pd.to_datetime(date).date()
+        categoria = categoria[0] if isinstance(categoria, list) and len(categoria) > 0 else None
+        recebido = 1 if 1 in switches else 0
+        fixo = 1 if 2 in switches else 0
+
+        df_despesas.loc[df_despesas.shape[0]] = [valor, recebido, fixo, date, categoria, descricao]
+        df_despesas.to_csv("df_despesas.csv", index=False)
+
+    data_return = df_despesas.to_dict()
+    return data_return

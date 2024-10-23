@@ -351,6 +351,20 @@ def salve_form_despesa(n, descricao, valor, date, switches, categoria, dict_desp
 )
 def add_category(n, n2, txt, check_delete, data):
     import pdb
+
+    cat_despesa = list(data["Categoria"].values())
     pdb.set_trace()
+
+    if n and not (txt == " or txt == None"):
+        cat_despesa = cat_despesa + [txt] if txt not in cat_despesa else cat_despesa
+
+    
+    if n2:
+        if len(check_delete) > 0:
+            cat_despesa = [i for i in cat_despesa if i not in check_delete]
+
+    opt_despesa = [{"label": i, "value": i} for i in cat_despesa]
+    df_cat_despesa = pd.DataFrame(cat_despesa, columns = ["Categoria"])
+    df_cat_despesa.to_csv("df_cat_despesa.csv")
 
     return

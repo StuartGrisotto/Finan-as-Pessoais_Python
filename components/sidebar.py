@@ -107,7 +107,7 @@ dbc.Modal([
                         dbc.Col([
                             html.Legend('Excluir Categoria', style={'color': 'red'}),
                             dbc.Checklist(
-                                id='chackList-select-style-receita',
+                                id='checklist-select-style-receita',
                                 options=[{"label": i, "value": i} for i in cat_receita],
                                 value=[],
                                 label_checked_style={'color': 'red'},
@@ -201,7 +201,7 @@ dbc.Row([
                         dbc.Col([
                             html.Legend('Excluir Categoria', style={'color': 'red'}),
                             dbc.Checklist(
-                                id='chackList-select-style-despesa',
+                                id='checklist-select-style-despesa',
                                 options=[{"label": i, "value": i} for i in cat_despesa],
                                 value=[],
                                 label_checked_style={'color': 'red'},
@@ -350,10 +350,8 @@ def salve_form_despesa(n, descricao, valor, date, switches, categoria, dict_desp
 
 )
 def add_category(n, n2, txt, check_delete, data):
-    import pdb
 
     cat_despesa = list(data["Categoria"].values())
-    pdb.set_trace()
 
     if n and not (txt == " or txt == None"):
         cat_despesa = cat_despesa + [txt] if txt not in cat_despesa else cat_despesa
@@ -366,5 +364,6 @@ def add_category(n, n2, txt, check_delete, data):
     opt_despesa = [{"label": i, "value": i} for i in cat_despesa]
     df_cat_despesa = pd.DataFrame(cat_despesa, columns = ["Categoria"])
     df_cat_despesa.to_csv("df_cat_despesa.csv")
+    data_return = df_cat_despesa.to_dict()
 
-    return
+    return [opt_despesa, opt_despesa, [], data_return]

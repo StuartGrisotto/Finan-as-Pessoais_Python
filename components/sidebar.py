@@ -339,14 +339,14 @@ def salve_form_despesa(n, descricao, valor, date, switches, categoria, dict_desp
         [Output("select_despesa", "options"),
         Output('checkList-select-style-despesa', 'options'),
         Output('checkList-select-style-despesa', 'value'),
-        Output('stored-cat-despesas', 'data')],
+        Output('store-cat-despesas', 'data')],
 
-        [Input("add-category-despesa", "n-clicks"),
+        [Input("add-category-despesa", "n_clicks"),
          Input("remove-category-despesa", "n_clicks")],
 
          [State("input-add-despesa", "value"),
           State('checkList-select-style-despesa', 'value'),
-          State('stored-cat-despesas', 'data')]
+          State('store-cat-despesas', 'data')]
 
 )
 def add_category(n, n2, txt, check_delete, data):

@@ -85,8 +85,10 @@ dbc.Modal([
                 html.Label('Categoria da receita'),
                 dbc.Select(id='select_receita',
                     options=[{'label': i, 'value': i} for i in cat_receita],
-                    value=cat_receita[0])
+                    value=cat_receita[0] if cat_receita else None  # Verifica se cat_receita não está vazia
+                )
             ], width=4)
+
 
         ], style={'margin-top': '25px'}),
 
@@ -334,6 +336,7 @@ def salve_form_despesa(n, descricao, valor, date, switches, categoria, dict_desp
     return data_return
 
 
+# Add/Remove categoria DESPESA
 
 @app.callback(
         [Output("select_despesa", "options"),
@@ -367,3 +370,39 @@ def add_category(n, n2, txt, check_delete, data):
     data_return = df_cat_despesa.to_dict()
 
     return [opt_despesa, opt_despesa, [], data_return]
+
+
+
+
+# Add/Remove categoria RECEITA
+
+@app.callback(
+    [Output("select_receita", "options"),
+     Output('checkList-select-style-receita', 'options'),
+     Output('checkList-select-style-receita', 'value'),
+     Output('store-cat-receitas', 'data')],
+
+    [Input("add-category-receita", "n_clicks"),
+     Input("remove-category-receita", "n_clicks")],
+
+    [State("input-add-receita", "value"),
+     State('checkList-select-style-receita', 'value'),
+     State('store-cat-receitas', 'data')]
+)
+def add_category_receita(n, n2, txt, check_delete, data):
+
+    cat_receita = list(data["Categoria"].values())
+
+    if n and txt and txt != "":
+        cat_receita = cat_receita + [txt] if txt not in cat_receita else cat_receita
+
+    if n2:
+        if len(check_delete) > 0:
+            cat_receita = [i for i in cat_receita if i not in check_delete]
+
+    opt_receita = [{"label": i, "value": i} for i in cat_receita]
+    df_cat_receita = pd.DataFrame(cat_receita, columns=["Categoria"])
+    df_cat_receita.to_csv("df_cat_receita.csv")
+    data_return = df_cat_receita.to_dict()
+
+    return [opt_receita, opt_receita, [], data_return]

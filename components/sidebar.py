@@ -108,7 +108,7 @@ dbc.Modal([
                             html.Legend('Excluir Categoria', style={'color': 'red'}),
                             dbc.Checklist(
                                 id='chackList-select-style-receita',
-                                options=[],
+                                options=[{"label": i, "value": i} for i in cat_receita],
                                 value=[],
                                 label_checked_style={'color': 'red'},
                                 input_checked_style={'backgroundColor': 'blue', 'borderColor': 'orange' },  
@@ -202,7 +202,7 @@ dbc.Row([
                             html.Legend('Excluir Categoria', style={'color': 'red'}),
                             dbc.Checklist(
                                 id='chackList-select-style-despesa',
-                                options=[],
+                                options=[{"label": i, "value": i} for i in cat_despesa],
                                 value=[],
                                 label_checked_style={'color': 'red'},
                                 input_checked_style={'backgroundColor': 'blue', 'borderColor': 'orange' },  
@@ -332,3 +332,25 @@ def salve_form_despesa(n, descricao, valor, date, switches, categoria, dict_desp
 
     data_return = df_despesas.to_dict()
     return data_return
+
+
+
+@app.callback(
+        [Output("select_despesa", "options"),
+        Output('checklist-selected-style-despesa', 'options'),
+        Output('checklist-selected-style-despesa', 'value'),
+        Output('stored-cat-despesas', 'data')],
+
+        [Input("add-category-despesa", "n-clicks"),
+         Input("remove-category-despesa", "n_clicks")],
+
+         [State("input-add-despesa", "value"),
+          State('checklist-selected-style-despesa', 'value'),
+          State('stored-cat-despesas', 'data')]
+
+)
+def add_category(n, n2, txt, check_delete, data):
+    import pdb
+    pdb.set_trace()
+
+    return

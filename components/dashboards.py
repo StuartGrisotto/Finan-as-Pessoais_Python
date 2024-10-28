@@ -44,7 +44,7 @@ layout = dbc.Col([
                dbc.CardGroup([
                    dbc.Card([
                          html.Legend('Receita'),
-                         html.H5('R$ 3000,00', id='p-receita-dashboards', style={})    
+                         html.H5('R$ 0,00', id='p-receita-dashboards', style={})    
                     ], style={'padding-left': '20px', 'padding-top': '10px'}),
                     dbc.Card(
                               html.Div(className='fa fa-smile-o', style=card_icon),
@@ -130,3 +130,14 @@ layout = dbc.Col([
 
 # =========  Callbacks  =========== #
 
+@app.callback([Output("dropdown-receita", "options"),
+    Output("dropdown-receita", "value"),
+    Output("p-receita-dashboards", "children")],
+    Input("store-receitas", "data"))
+
+def populate_dropdownvalues(data):
+    df = pd.DataFrame(data)
+    valor = df['valor'].sum()
+    val = df.Categoria.unique().tolist()
+
+    return ([{"label": x, "value": x} for x in val], val, f"R$ {valor}")

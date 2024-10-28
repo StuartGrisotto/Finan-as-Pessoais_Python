@@ -406,3 +406,4 @@ def add_category_receita(n, n2, txt, check_delete, data):
     data_return = df_cat_receita.to_dict()
 
     return [opt_receita, opt_receita, [], data_return]
+ #Parei aqui... e

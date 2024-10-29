@@ -26,7 +26,7 @@ layout = dbc.Col([
                dbc.CardGroup([
                    dbc.Card([
                          html.Legend('Saldo'),
-                         html.H5('R$ 500,00', id='p-saldo-dashboards', style={})    
+                         html.H5('R$ -', id='p-saldo-dashboards', style={})    
                     ], style={'padding-left': '20px', 'padding-top': '10px'}),
                     dbc.Card(
                               html.Div(className='fa fa-university', style=card_icon),
@@ -44,7 +44,7 @@ layout = dbc.Col([
                dbc.CardGroup([
                    dbc.Card([
                          html.Legend('Receita'),
-                         html.H5('R$ 0,00', id='p-receita-dashboards', style={})    
+                         html.H5('R$ -', id='p-receita-dashboards', style={})    
                     ], style={'padding-left': '20px', 'padding-top': '10px'}),
                     dbc.Card(
                               html.Div(className='fa fa-smile-o', style=card_icon),
@@ -62,7 +62,7 @@ layout = dbc.Col([
                dbc.CardGroup([
                    dbc.Card([
                          html.Legend('Despesa'),
-                         html.H5('R$ 2200,00', id='p-despesa-dashboards', style={})    
+                         html.H5('R$ -', id='p-despesa-dashboards', style={})    
                     ], style={'padding-left': '20px', 'padding-top': '10px'}),
                     dbc.Card(
                               html.Div(className='fa fa-meh-o', style=card_icon),

@@ -78,6 +78,7 @@ layout = dbc.Col([
            dbc.Col([
            dbc.Card([
                html.Legend("Filtrar Lançamentos", className="card-title"),
+               
                html.Label("Categoria das receitas"),
                html.Div(
                    dcc.Dropdown(
@@ -89,7 +90,7 @@ layout = dbc.Col([
                        multi=True)
                ),
 
-                html.Label("Categoria das Despesas", style={"margin-top": "10px"}),
+                html.Label("Categorias das despesas", style={"margin-top": "10px"}),
                 dcc.Dropdown(
                     id="dropdown-despesa",
                     clearable=False,
@@ -136,7 +137,7 @@ layout = dbc.Col([
     Input("store-receitas", "data"))
 def populate_dropdownvalues(data):
     df = pd.DataFrame(data)
-    valor = df['Valor'].sum()
+    valor = df['valor'].sum()
     val = df.Categoria.unique().tolist()
 
     return [([{"label": x, "value": x} for x in df.Categoria.unique()]), val, f"R$ {valor}"]
@@ -148,21 +149,7 @@ def populate_dropdownvalues(data):
     Input("store-despesas", "data"))
 def populate_dropdownvalues(data):
     df = pd.DataFrame(data)
-    valor = df['Valor'].sum()
+    valor = df['valor'].sum()
     val = df.Categoria.unique().tolist()
 
     return [([{"label": x, "value": x} for x in df.Categoria.unique()]), val, f"R$ {valor}"]
-
-
-# # VALOR - saldo
-# @app.callback(
-#     Output("p-saldo-dashboards", "children"),
-#     [Input("store-despesas", "data"),
-#     Input("store-receitas", "data")])
-# def saldo_total(despesas, receitas):
-#     df_despesas = pd.DataFrame(despesas)
-#     df_receitas = pd.DataFrame(receitas)
-
-#     valor = df_receitas['Valor'].sum() - df_despesas['Valor'].sum()
-
-#     return f"R$ {valor}"

@@ -178,13 +178,11 @@ dbc.Row([
             ], width=4),
 
             dbc.Col([
-                html.Label('Categoria da despesa'),
-                dbc.Select(id='select_despesa',
-                           options=[{'label': i, 'value': i} for i in cat_despesa],
-                           value=cat_despesa[0])
-            ], width=4)
-
-        ], style={'margin-top': '25px'}),
+                        html.Label("Categoria da despesa"),
+                        dbc.Select(id="select_despesa", options=[{"label": i, "value": i} for i in cat_despesa])
+                    ], width=4)
+                ], style={"margin-top": "25px"}),
+                
 
 
         dbc.Row([
@@ -325,7 +323,7 @@ def salve_form_despesa(n, descricao, valor, date, switches, categoria, dict_desp
     if n and not(valor == "" or valor is None):
         valor = round(float(valor), 2)
         date = pd.to_datetime(date).date()
-        categoria = categoria[0] if isinstance(categoria, list) and len(categoria) > 0 else None
+        categoria = categoria[0] if isinstance(categoria, list) and len(categoria) > 0 else 'Categoria Inválida'
         recebido = 1 if 1 in switches else 0
         fixo = 1 if 2 in switches else 0
 
@@ -335,75 +333,40 @@ def salve_form_despesa(n, descricao, valor, date, switches, categoria, dict_desp
     data_return = df_despesas.to_dict()
     return data_return
 
-
 # Add/Remove categoria DESPESA
-
-@app.callback(
-        [Output("select_despesa", "options"),
-        Output('checkList-select-style-despesa', 'options'),
-        Output('checkList-select-style-despesa', 'value'),
-        Output('store-cat-despesas', 'data')],
-
-        [Input("add-category-despesa", "n_clicks"),
-         Input("remove-category-despesa", "n_clicks")],
-
-         [State("input-add-despesa", "value"),
-          State('checkList-select-style-despesa', 'value'),
-          State('store-cat-despesas', 'data')]
-
-)
-def add_category(n, n2, txt, check_delete, data):
-
-    cat_despesa = list(data["Categoria"].values())
-
-    if n and not (txt == " or txt == None"):
-        cat_despesa = cat_despesa + [txt] if txt not in cat_despesa else cat_despesa
-
-    
-    if n2:
-        if len(check_delete) > 0:
-            cat_despesa = [i for i in cat_despesa if i not in check_delete]
-
-    opt_despesa = [{"label": i, "value": i} for i in cat_despesa]
-    df_cat_despesa = pd.DataFrame(cat_despesa, columns = ["Categoria"])
-    df_cat_despesa.to_csv("df_cat_despesa.csv")
-    data_return = df_cat_despesa.to_dict()
-
-    return [opt_despesa, opt_despesa, [], data_return]
-
-
-
-
-# Add/Remove categoria RECEITA
-
 @app.callback(
     [Output("select_receita", "options"),
      Output('checkList-select-style-receita', 'options'),
      Output('checkList-select-style-receita', 'value'),
      Output('store-cat-receitas', 'data')],
-
     [Input("add-category-receita", "n_clicks"),
      Input("remove-category-receita", "n_clicks")],
-
     [State("input-add-receita", "value"),
      State('checkList-select-style-receita', 'value'),
      State('store-cat-receitas', 'data')]
 )
-def add_category_receita(n, n2, txt, check_delete, data):
-
-    cat_receita = list(data["Categoria"].values())
-
-    if n and txt and txt != "":
+def add_category(n, n2, txt, check_delete, data):
+    # Verifique se 'data' e 'Categoria' estão presentes
+    if data and "Categoria" in data:
+        cat_receita = list(data["Categoria"].values())
+    else:
+        cat_receita = []  # Se não existir, inicializa como lista vazia
+    
+    # Adiciona nova categoria se 'txt' não for vazio e não for None
+    if n and txt:
         cat_receita = cat_receita + [txt] if txt not in cat_receita else cat_receita
 
+    # Remove categorias selecionadas
     if n2:
         if len(check_delete) > 0:
             cat_receita = [i for i in cat_receita if i not in check_delete]
 
+    # Gera as opções para os selects
     opt_receita = [{"label": i, "value": i} for i in cat_receita]
-    df_cat_receita = pd.DataFrame(cat_receita, columns=["Categoria"])
+    
+    # Cria o DataFrame e converte para dicionário
+    df_cat_receita = pd.DataFrame(cat_receita, columns=['Categoria'])
     df_cat_receita.to_csv("df_cat_receita.csv")
     data_return = df_cat_receita.to_dict()
 
     return [opt_receita, opt_receita, [], data_return]
- #Parei aqui... e

@@ -34,7 +34,7 @@ if ("df_cat_receita.csv" in os.listdir()) and ("df_cat_despesa.csv" in os.listdi
     cat_despesa = df_cat_despesa.values.tolist()
 
 else:
-    cat_receita = {'Catergoria': ["Salário", "Investimento", "Comissão"]}
+    cat_receita = {'Categoria': ["Salário", "Investimento", "Comissão"]}
     cat_despesa = {'Categoria': ["Alimentação", "Aluguel", "Gasolina", "Saúde", "Lazer"]}
 
     df_cat_receita = pd.DataFrame(cat_receita)

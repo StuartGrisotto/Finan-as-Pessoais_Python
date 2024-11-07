@@ -179,7 +179,8 @@ dbc.Row([
 
             dbc.Col([
                         html.Label("Categoria da despesa"),
-                        dbc.Select(id="select_despesa", options=[{"label": i, "value": i} for i in cat_despesa])
+                        dbc.Select(id="select_despesa",
+                                   options=[{"label": i, "value": i} for i in cat_despesa])
                     ], width=4)
                 ], style={"margin-top": "25px"}),
                 
@@ -323,7 +324,9 @@ def salve_form_despesa(n, descricao, valor, date, switches, categoria, dict_desp
     if n and not(valor == "" or valor is None):
         valor = round(float(valor), 2)
         date = pd.to_datetime(date).date()
-        categoria = categoria[0] if isinstance(categoria, list) and len(categoria) > 0 else 'Categoria Inválida'
+        categoria = categoria if isinstance(categoria, str) else categoria[0]  # Ajuste aqui
+
+        
         recebido = 1 if 1 in switches else 0
         fixo = 1 if 2 in switches else 0
 

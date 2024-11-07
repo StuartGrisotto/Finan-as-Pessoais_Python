@@ -30,9 +30,8 @@ else:
 if ("df_cat_receita.csv" in os.listdir()) and ("df_cat_despesa.csv" in os.listdir()):
     df_cat_despesa = pd.read_csv("df_cat_despesa.csv", index_col=0)
     df_cat_receita = pd.read_csv("df_cat_receita.csv", index_col=0)
-    cat_receita = df_cat_receita.values.tolist()
-    cat_despesa = df_cat_despesa.values.tolist()
-
+    cat_receita = df_cat_receita['Categoria'].tolist()  # Pega apenas a coluna 'Categoria' como lista
+    cat_despesa = df_cat_despesa['Categoria'].tolist()  # Pega apenas a coluna 'Categoria' como lista
 else:
     cat_receita = {'Categoria': ["Salário", "Investimento", "Comissão"]}
     cat_despesa = {'Categoria': ["Alimentação", "Aluguel", "Gasolina", "Saúde", "Lazer"]}

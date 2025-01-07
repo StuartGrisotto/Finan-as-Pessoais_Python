@@ -17,27 +17,25 @@ card_icon = {
     "margin": "auto"
 }
 
+graph_margin = dict(l=25, r=25, t=25, b=0)
+
 # =========  Layout  =========== #
 layout = dbc.Col([
        dbc.Row([
            
-           # Saldo Total
-           dbc.Col([
-               dbc.CardGroup([
-                   dbc.Card([
-                         html.Legend('Saldo'),
-                         html.H5('R$ -', id='p-saldo-dashboards', style={})    
-                    ], style={'padding-left': '20px', 'padding-top': '10px'}),
-                    dbc.Card(
-                              html.Div(className='fa fa-university', style=card_icon),
-                              color='warning',
-                              style={'maxWidth': 75, 'height': 100, 'margin-left': '-10pix'} 
-                    
-                    )
-               ])
-           ], width=4),
-
-
+            # Saldo
+            dbc.Col([
+                    dbc.CardGroup([
+                            dbc.Card([
+                                    html.Legend("Saldo"),
+                                    html.H5("R$ -", id="p-saldo-dashboards", style={}),
+                            ], style={"padding-left": "20px", "padding-top": "10px"}),
+                            dbc.Card(
+                                html.Div(className="fa fa-university", style=card_icon), 
+                                color="warning",
+                                style={"maxWidth": 75, "height": 100, "margin-left": "-10px"},
+                            )])
+                    ], width=4),
 
            # Receita
            dbc.Col([
@@ -104,7 +102,7 @@ layout = dbc.Col([
                 dcc.DatePickerRange(
                     month_format='Do MMM, YY',
                     end_date_placeholder_text='Data...',
-                    start_date=datetime(2022, 4, 1).date(),
+                    start_date=datetime(2022, 1, 1).date(),
                     end_date=datetime.today() + timedelta(days= 31),
                     updatemode='singledate',
                     id='date-picker-config',
@@ -153,3 +151,34 @@ def populate_dropdownvalues(data):
     val = df.Categoria.unique().tolist()
 
     return [([{"label": x, "value": x} for x in df.Categoria.unique()]), val, f"R$ {valor}"]
+
+
+
+
+@app.callback(
+    Output('graph1', 'figure')
+    [Input('store-despesas', 'data'),
+     Input('store-receita', 'data'),
+     Input("dropdown-despesa", "value"),
+     Input("dropdown-receita", "value"),]
+)
+
+def update_output(data_despesa, data_receita, despesa, receita):
+
+    df_despesas = pd.DataFrame(data_despesa).set_index("Data") [["Valor"]]
+    df_ds = df_despesas.groupby("Data").sum().rename(columns={"Valor": "Despesa"})
+    
+    df_receitas = pd.DataFrame(data_receita).set_index("Data") [["Valor"]]
+    df_rc = df_despesas.groupby("Data").sum().rename(columns={"Valor": "Receita"})
+
+    df_acum = df_ds.join(df_rc, how="outer").fillna(0)
+    df_acum["Acum"] = df_acum["Receita"] - df_acum["Despesa"]
+    df_acum["Acum"] = df_acum["Acum"].cumsum()
+    
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(name="Fluxo de caixa", x=df_acum.index, y=df_acum["Acum"], mode="lines"))
+    
+    fig.update_layout(margin=graph_margin)
+    
+    return fig

@@ -37,3 +37,32 @@ layout = dbc.Col([
 
 # =========  Callbacks  =========== #
 # Tabela
+@app.callback(
+    Output('tabela-despesa', 'children'),
+    Input('store-despesas', 'data')
+)
+def imprimir_tabelas (data):
+    df = pd.DataFrame(data)
+    df['Data'] = pd.to_datetime(df['Data']).dt.date
+    df = df.fillna('-')
+    df.sort_values(by='Data', ascending=False)
+
+    tabela = dash_table.DataTable(df.to_dict('records'), [{"name": i, "id": i} for i in df.columns])
+    return tabela
+
+
+
+
+@app.callback(
+    Output('bar-graph', 'figure'),
+
+    [Input('store-despesas', 'data'),]
+)
+def bar_chart(data):
+    df = pd.DataFrame(data)
+    df_grouped = df.groupby("Categoria").sum() [["valor"]].reset_index()
+    
+    graph = px.bar(df_grouped, x='Categoria', y='valor', title = "Despesas Gerais")
+    graph.update_layout(paper_bgcolor = 'rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+
+    return graph

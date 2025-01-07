@@ -231,5 +231,38 @@ def graph2_show(data_receita, data_despesa, receita, despesa, start_date, end_da
 
 
 @app.callback(
-    
+    Output('graph3', 'figure'),
+
+    [Input('store-receitas', 'data'),
+     Input("dropdown-receita", "value"),]
 )
+def pie_receita(data_receita, receita):
+    df = pd.DataFrame(data_receita)
+    df = df[df['Categoria'].isin(receita)]
+
+    fig = px.pie(df, values=df.valor, names=df.Categoria, hole=.2)
+    fig.update_layout(title={'text': "Receitas"})
+    fig.update_layout(margin=graph_margin, height=350)
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+
+    return fig
+
+
+
+@app.callback(
+    Output('graph4', 'figure'),
+
+    [Input('store-despesas', 'data'),
+     Input("dropdown-despesa", "value"),]
+)
+def pie_despesa(data_despesa, despesa):
+    df = pd.DataFrame(data_despesa)
+    df = df[df['Categoria'].isin(despesa)]
+
+    fig = px.pie(df, values=df.valor, names=df.Categoria, hole=.2)
+    fig.update_layout(title={'text': "despesas"})
+
+    fig.update_layout(margin=graph_margin, height=350)
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+
+    return fig

@@ -1,5 +1,6 @@
 ,valor,Efetuado,Fixo,Data,Categoria,Descrição
-0,2000.0,1,0,2025-01-05,Salário,Salario
-1,200.0,1,0,2025-01-01,Investimento,BET
-2,350.0,1,0,2025-01-03,Comissão,Vendas
-3,350.0,1,0,2025-01-04,Comissão,Vendas
+0,2000.0,1,0,2025-01-03,Salário,Salario
+1,150.0,1,0,2025-01-01,Comissão,Vendas
+2,250.0,1,0,2025-01-02,Investimento,BET
+3,250.0,1,0,2025-01-05,Comissão,Vendas
+4,500.0,1,0,2025-01-06,Bolsa,Bolsa

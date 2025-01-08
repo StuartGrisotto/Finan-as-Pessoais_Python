@@ -194,7 +194,7 @@ dbc.Row([
             dbc.Col([
                 dbc.Label("Extras"),
                 dbc.Checklist(
-                    options=[{"label": "Foi Recebida", "value": 1},
+                    options=[{"label": "Foi Paga", "value": 1},
                              {"label": "Despesa Recorrente", "value": 2}],
                     value=[1],
                     id='switches-input-despesa',
@@ -326,6 +326,7 @@ def salve_form_receita(n, descricao, valor, date, switches, categoria, dict_rece
 
     data_return = df_receitas.to_dict()
     return data_return
+
 
 
 

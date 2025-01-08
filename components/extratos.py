@@ -35,8 +35,10 @@ layout = dbc.Col([
            ])
        ], style={'paddin': '10px'})
 
+
+
 # =========  Callbacks  =========== #
-# Tabela
+
 # Tabela
 @app.callback(
     Output('tabela-despesas', 'children'),

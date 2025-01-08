@@ -1,7 +1,8 @@
 valor,Efetuado,Fixo,Data,Categoria,Descrição
-1000.0,1,0,2025-01-06,Aluguel,Aluguel
-50.0,1,0,2025-01-01,Saúde,Remédio rinite 
-250.0,1,0,2025-01-02,Saúde,gasolina
-500.0,1,0,2025-01-03,Mercado,Mercado
-450.0,1,0,2025-01-03,Aluguel,Aluguel condominio
-150.0,1,0,2025-01-04,Aluguel,luz
+1000.0,1,0,2025-01-06T00:00:00,Aluguel,Aluguel
+50.0,1,0,2025-01-01T00:00:00,Saúde,Remédio rinite 
+250.0,1,0,2025-01-02T00:00:00,Saúde,gasolina
+500.0,1,0,2025-01-03T00:00:00,Mercado,Mercado
+450.0,1,0,2025-01-03T00:00:00,Aluguel,Aluguel condominio
+150.0,1,0,2025-01-04T00:00:00,Aluguel,luz
+150.0,1,0,2025-01-07,Gasolina,gasolina

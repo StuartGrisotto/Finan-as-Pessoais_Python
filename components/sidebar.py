@@ -19,15 +19,40 @@ from globals import *
 
 # ========= Layout ========= #
 layout = dbc.Col([
-                html.H1("FINANÇAS PESSOAIS", className="text-primary"),
-                html.P("By GRISOTTO", className="text-info"),
+                html.H1("FinanceFlow", className="text-primary"),
+                html.P("By Grisotto", className="text-info"),
                 html.Hr(),
 
 #seção de perfil--------------------
-dbc.Button(id='botão_avatar',
-        children=[html.Img(src='/assets/img_hom.png', id='avatar_change', alt='avatar', className='perfil_avatar',)
-                ], style={'background-color':'transparent', 'border-color':'transparent'}),
+# dbc.Button(id='botão_avatar',
+#         children=[html.Img(src='/assets/Foto_perfil.jpeg', id='avatar_change', alt='avatar', className='perfil_avatar',)
+#                 ], style={'background-color':'transparent', 'border-color':'transparent'}),
     
+    dbc.Button(
+    id='botão_avatar',
+    children=[
+        html.Img(
+            src='/assets/Foto_perfil.jpeg',
+            id='avatar_change',
+            alt='avatar',
+            className='perfil_avatar',
+            style={
+                'width': '200px',  # Ajuste o tamanho conforme necessário
+                'height': '150px',  # Ajuste o tamanho conforme necessário
+                'display': 'block',  # Garante que a imagem se comporte como um bloco
+                'margin': '2 auto'   # Centraliza a imagem
+            }
+        ),
+    ],
+    style={
+        'background-color': 'transparent',
+        'border-color': 'transparent',
+        'display': 'flex',  # Usando flexbox para garantir o centro
+        'justify-content': 'center',  # Centraliza o conteúdo horizontalmente
+        'align-items': 'center'  # Centraliza o conteúdo verticalmente
+    }
+),
+
 #seção NOVO--------------------
 dbc.Row([
     dbc.Col([
@@ -40,7 +65,7 @@ dbc.Row([
             children=['- Despesa'])
             
             
-    ],width=6)
+    ],width=5)
       
 ]),
 

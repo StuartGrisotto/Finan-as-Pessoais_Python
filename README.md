@@ -33,6 +33,26 @@ O grande diferencial do FinanceFlow está no armazenamento dos dados: todas as i
 
 ---
 
+## **👨‍💻 Tecnologias Utilizadas
+
+O projeto faz uso das seguintes bibliotecas:
+
+Dash: Framework para construção de aplicações web interativas.
+Dash-Core-Components e Dash HTML: Elementos para criar a interface de usuário.
+Dash Bootstrap: Para estilização e design responsivo.
+Plotly: Geração de gráficos dinâmicos e visualizações interativas.
+Pandas: Manipulação e análise de dados financeiros.
+
+---
+
+
+## **🔒 Como funciona o armazenamento dos dados
+
+O FinanceFlow prioriza a privacidade do usuário, armazenando todos os dados localmente, sem necessidade de conexão com servidores externos.
+
+store.py: É o módulo responsável por salvar e carregar os dados do usuário no formato de arquivo local (como JSON ou CSV). Ele garante que todas as informações estejam acessíveis e seguras diretamente no computador.
+pandas.py: Realiza o tratamento e análise dos dados armazenados, como cálculos de soma, média e filtragens para relatórios financeiros.
+
 ## **🚀 Como começar**  
 1. Clone este repositório:  
    ```bash

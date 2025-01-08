@@ -1,9 +1,9 @@
 ![Blue Simple Animated Illustration Computer Part Quiz Presentation](https://github.com/user-attachments/assets/55d68236-49c6-4837-8d08-c7d08d06d123)
 
 
-# **FinanceFlow: Seu Parceiro em Controle Financeiro Pessoal**  
+# **Meu Projeto: Seu Parceiro em Controle Financeiro Pessoal**  
 
-FinanceFlow é um aplicativo web desenvolvido exclusivamente em **Python**, projetado para auxiliar no gerenciamento financeiro pessoal de maneira simples e eficiente. 
+Meu Projeto é um aplicativo web desenvolvido exclusivamente em **Python**, projetado para auxiliar no gerenciamento financeiro pessoal de maneira simples e eficiente. 
 
 O grande diferencial do FinanceFlow está no armazenamento dos dados: todas as informações financeiras são mantidas diretamente no computador do usuário, priorizando a **privacidade** e garantindo total controle sobre os dados.  
 
@@ -48,7 +48,7 @@ Pandas: Manipulação e análise de dados financeiros.
 
 ## **🔒 Como funciona o armazenamento dos dados
 
-O FinanceFlow prioriza a privacidade do usuário, armazenando todos os dados localmente, sem necessidade de conexão com servidores externos.
+O Meu Projeto prioriza a privacidade do usuário, armazenando todos os dados localmente, sem necessidade de conexão com servidores externos.
 
 store.py: É o módulo responsável por salvar e carregar os dados do usuário no formato de arquivo local (como JSON ou CSV). Ele garante que todas as informações estejam acessíveis e seguras diretamente no computador.
 pandas.py: Realiza o tratamento e análise dos dados armazenados, como cálculos de soma, média e filtragens para relatórios financeiros.

@@ -57,3 +57,5 @@ pandas.py: Realiza o tratamento e análise dos dados armazenados, como cálculos
 1. Clone este repositório:  
    ```bash
    git clone https://github.com/StuartGrisotto/Finan-as-Pessoais_Python.git
+
+Créditos: Asimov Academy

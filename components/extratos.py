@@ -37,17 +37,45 @@ layout = dbc.Col([
 
 # =========  Callbacks  =========== #
 # Tabela
+# Tabela
 @app.callback(
-    Output('tabela-despesa', 'children'),
+    Output('tabela-despesas', 'children'),
     Input('store-despesas', 'data')
 )
-def imprimir_tabelas (data):
+def imprimir_tabela (data):
     df = pd.DataFrame(data)
     df['Data'] = pd.to_datetime(df['Data']).dt.date
+
+    df.loc[df['Efetuado'] == 0, 'Efetuado'] = 'Não'
+    df.loc[df['Efetuado'] == 1, 'Efetuado'] = 'Sim'
+
+    df.loc[df['Fixo'] == 0, 'Fixo'] = 'Não'
+    df.loc[df['Fixo'] == 1, 'Fixo'] = 'Sim'
+
     df = df.fillna('-')
+
     df.sort_values(by='Data', ascending=False)
 
-    tabela = dash_table.DataTable(df.to_dict('records'), [{"name": i, "id": i} for i in df.columns])
+    tabela = dash_table.DataTable(
+        id='datatable-interactivity',
+        columns=[
+            {"name": i, "id": i, "deletable": False, "selectable": False, "hideable": True}
+            if i == "Descrição" or i == "Fixo" or i == "Efetuado"
+            else {"name": i, "id": i, "deletable": False, "selectable": False}
+            for i in df.columns
+        ],
+
+        data=df.to_dict('records'),
+        filter_action="native",    
+        sort_action="native",       
+        sort_mode="single",  
+        selected_columns=[],        
+        selected_rows=[],          
+        page_action="native",      
+        page_current=0,             
+        page_size=10,                        
+    ),
+
     return tabela
 
 
@@ -66,3 +94,14 @@ def bar_chart(data):
     graph.update_layout(paper_bgcolor = 'rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 
     return graph
+
+@app.callback(
+    Output('valor_despesa_card', 'children'),
+
+    [Input('store-despesas', 'data'),]
+)
+def display_desp(data):
+    df = pd.DataFrame(data)
+    valor = df['valor'].sum()
+
+    return f"R$ {valor}"

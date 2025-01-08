@@ -26,7 +26,7 @@ dbc.Row([
     dbc.Col([
         dcc.Location(id='url'),
         sidebar.layout
-    ], md=2, ),
+    ], md=2, ), 
     
     dbc.Col([
         content

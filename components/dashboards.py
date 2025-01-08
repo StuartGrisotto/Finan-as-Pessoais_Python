@@ -211,14 +211,20 @@ def graph2_show(data_receita, data_despesa, receita, despesa, start_date, end_da
     df_ds = pd.DataFrame(data_despesa)
     df_rc = pd.DataFrame(data_receita)
 
-    df_ds["Output"] = "Despesas"
     df_rc["Output"] = "Receitas"
+    df_ds["Output"] = "Despesas"
+  
 
-    df_final = pd.concat([df_ds, df_rc]) #concatenação
+    df_final = pd.concat([df_rc, df_ds]) #concatenação
 
-    df_final["Data"] = pd.to_datetime(df_final["Data"]) #formatação data, no string
-    start_date = pd.to_datetime(start_date) #formatação data, no string
-    end_date = pd.to_datetime(end_date) #formatação data, no string
+    # df_final["Data"] = pd.to_datetime(df_final["Data"]) #formatação data, no string
+    # start_date = pd.to_datetime(start_date) #formatação data, no string
+    # end_date = pd.to_datetime(end_date) #formatação data, no string
+
+    df_final["Data"] = pd.to_datetime(df_final["Data"], errors='coerce')
+    start_date = pd.to_datetime(start_date, errors='coerce')
+    end_date = pd.to_datetime(end_date, errors='coerce')
+
 
     df_final = df_final[(df_final["Data"] >= start_date) & (df_final["Data"] <= end_date)]
     df_final = df_final[(df_final["Categoria"].isin(receita)) | (df_final["Categoria"].isin(despesa))]
